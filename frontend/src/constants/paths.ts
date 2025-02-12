@@ -3,3 +3,7 @@ export const PATH = {
   FORM: 'form',
   ITEM: 'item',
 };
+
+export const FORM_STATE = {
+  EDIT_FORM: 'edit form',
+};
