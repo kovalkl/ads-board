@@ -7,7 +7,7 @@ export const Layout = () => {
   return (
     <>
       <Header />
-      <Box component='main' sx={{ margin: '2rem 0' }}>
+      <Box component='main' sx={{ margin: '2rem 0', width: '100%' }}>
         <Outlet />
       </Box>
     </>

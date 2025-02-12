@@ -1,7 +1,24 @@
+import { Link } from 'react-router';
+
+import { PATH } from '@/constants/paths';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+
 export const AdList = () => {
   return (
-    <div>
-      <h1>List</h1>
-    </div>
+    <Container>
+      <Stack gap={2} alignItems='flex-start'>
+        <Typography variant='h1'>Мои объявления</Typography>
+        <Stack direction='row' justifyContent='flex-end' width='100%'>
+          <Link to={`/${PATH.FORM}`}>
+            <Button sx={{ alignSelf: 'flex-end' }}>
+              Разместить объявление
+            </Button>
+          </Link>
+        </Stack>
+      </Stack>
+    </Container>
   );
 };
