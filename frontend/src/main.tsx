@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 
 import { Layout } from '@/components/Layout/Layout.tsx';
+import { PATH } from '@/constants/paths';
 import '@/index.sass';
 import { AdCard } from '@/pages/AdCard.tsx';
 import { AdList } from '@/pages/AdList';
@@ -22,9 +23,9 @@ createRoot(document.getElementById('root')!).render(
           <Routes>
             <Route path='/' element={<Layout />}>
               <Route index element={<Navigate to='list' replace />} />
-              <Route path='form' element={<Form />} />
-              <Route path='list' element={<AdList />} />
-              <Route path='item:id' element={<AdCard />} />
+              <Route path={PATH.FORM} element={<Form />} />
+              <Route path={PATH.LIST} element={<AdList />} />
+              <Route path={`${PATH.ITEM}:id`} element={<AdCard />} />
             </Route>
           </Routes>
         </BrowserRouter>
