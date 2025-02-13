@@ -15,6 +15,20 @@ export const theme = createTheme({
       fontSize: '2rem',
       marginBottom: '2rem',
     },
+    h2: {
+      fontSize: '1rem',
+      fontWeight: 700,
+      color: COLORS.INFO,
+      marginBottom: '1rem',
+    },
+    body1: {
+      fontWeight: 700,
+    },
+    caption: {
+      fontSize: '1rem',
+      color: COLORS.SECONDARY,
+      fontWeight: 700,
+    },
   },
   palette: {
     primary: {
@@ -24,8 +38,8 @@ export const theme = createTheme({
       main: COLORS.SECONDARY,
     },
     text: {
-      primary: COLORS.LIGHT,
-      secondary: COLORS.LIGHT,
+      primary: COLORS.DARK,
+      secondary: COLORS.DARK,
     },
   },
   components: {
@@ -33,6 +47,9 @@ export const theme = createTheme({
       defaultProps: {
         sx: {
           padding: '10px',
+          '& a': {
+            color: COLORS.LIGHT,
+          },
         },
       },
     },
