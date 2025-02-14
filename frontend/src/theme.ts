@@ -74,5 +74,10 @@ export const theme = createTheme({
         },
       },
     },
+    MuiFormControl: {
+      defaultProps: {
+        size: 'small',
+      },
+    },
   },
 });

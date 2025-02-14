@@ -26,3 +26,11 @@ export type AdditionalFieldType = {
     workSchedule?: string;
   };
 };
+
+export type BaseInfoType = {
+  name: string;
+  description: string;
+  location: string;
+  type: ItemTypeKeys | '';
+  image?: string;
+};
