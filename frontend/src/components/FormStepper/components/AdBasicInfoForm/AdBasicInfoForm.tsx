@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { TYPE_OPTIONS } from '@/components/FormStepper/components/AdBasicInfoForm/constants';
@@ -8,14 +9,25 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-export const AdBasicInfoForm = () => {
+type AdBasicInfoFormProps = {
+  // eslint-disable-next-line no-unused-vars
+  toggleStepValidity: (value: boolean) => void;
+};
+
+export const AdBasicInfoForm = ({
+  toggleStepValidity,
+}: AdBasicInfoFormProps) => {
   const {
     control,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
+
+  useEffect(() => {
+    toggleStepValidity(isValid);
+  }, [isValid, toggleStepValidity]);
 
   return (
     <Stack sx={{ maxWidth: '760px' }}>

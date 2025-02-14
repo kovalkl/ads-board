@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { AdAdditionalInfoForm } from '@/components/FormStepper/components/AdAdditionalInfoForm/AdAdditionalInfoForm';
 import { AdBasicInfoForm } from '@/components/FormStepper/components/AdBasicInfoForm/AdBasicInfoForm';
@@ -18,6 +18,7 @@ type FormStepperProps = {
 export const FormStepper = ({ isNewAd = true }: FormStepperProps) => {
   const finishButtonLabel = isNewAd ? 'Разместить' : 'Сохранить';
 
+  const [validSteps, setValidSteps] = useState<number[]>([]);
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set<number>());
 
@@ -40,6 +41,17 @@ export const FormStepper = ({ isNewAd = true }: FormStepperProps) => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const toggleStepValidity = useCallback(
+    (isValid: boolean) => {
+      setValidSteps((prevValidSteps) =>
+        isValid
+          ? [...prevValidSteps, activeStep]
+          : prevValidSteps.filter((step) => step !== activeStep),
+      );
+    },
+    [activeStep],
+  );
+
   return (
     <Stack gap={2} sx={{ width: '100%' }}>
       <Stepper activeStep={activeStep}>
@@ -56,7 +68,9 @@ export const FormStepper = ({ isNewAd = true }: FormStepperProps) => {
         })}
       </Stepper>
       <>
-        {activeStep === 0 && <AdBasicInfoForm />}
+        {activeStep === 0 && (
+          <AdBasicInfoForm toggleStepValidity={toggleStepValidity} />
+        )}
         {activeStep === 1 && <AdAdditionalInfoForm />}
         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
           <Button
@@ -68,7 +82,10 @@ export const FormStepper = ({ isNewAd = true }: FormStepperProps) => {
             Назад
           </Button>
           <Box sx={{ flex: '1 1 auto' }} />
-          <Button onClick={handleNext}>
+          <Button
+            onClick={handleNext}
+            disabled={!validSteps.includes(activeStep)}
+          >
             {activeStep === steps.length - 1 ? finishButtonLabel : 'Далее'}
           </Button>
         </Box>
