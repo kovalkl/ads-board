@@ -1,25 +1,25 @@
 export const ItemTypes = {
-  REAL_ESTATE: 'Недвижимость',
-  AUTO: 'Авто',
-  SERVICES: 'Услуги',
+  real_estate: 'Недвижимость',
+  auto: 'Авто',
+  services: 'Услуги',
 } as const;
 
 export type ItemTypeKeys = keyof typeof ItemTypes;
 
 export type AdditionalFieldType = {
-  REAL_ESTATE?: {
+  real_estate?: {
     propertyType: string;
     area: number;
     rooms: number;
     price: number;
   };
-  AUTO?: {
+  auto?: {
     brand: string;
     model: string;
     year: number;
     mileage?: number;
   };
-  SERVICES?: {
+  services?: {
     serviceType: string;
     experience: number;
     cost: number;

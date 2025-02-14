@@ -1,10 +1,16 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { TYPE_OPTIONS } from '@/components/FormStepper/components/AdBasicInfoForm/constants';
-import { schema } from '@/components/FormStepper/components/AdBasicInfoForm/schema';
+import {
+  AdBasicInfoFormValues,
+  schema,
+} from '@/components/FormStepper/components/AdBasicInfoForm/schema';
 import { LabeledInput } from '@/components/FormStepper/components/LabeledInput/LabeledInput';
 import { LabeledSelect } from '@/components/FormStepper/components/LabeledSelect/LabeledSelect';
+import { useAppDispatch } from '@/store/hooks';
+import { setBaseInfo } from '@/store/slice/FormSlice';
+import { ItemTypes } from '@/store/types';
+import { BaseInfoType } from '@/store/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -17,10 +23,13 @@ type AdBasicInfoFormProps = {
 export const AdBasicInfoForm = ({
   toggleStepValidity,
 }: AdBasicInfoFormProps) => {
+  const dispatch = useAppDispatch();
+
   const {
     control,
+    getValues,
     formState: { errors, isValid },
-  } = useForm({
+  } = useForm<AdBasicInfoFormValues>({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
@@ -28,6 +37,17 @@ export const AdBasicInfoForm = ({
   useEffect(() => {
     toggleStepValidity(isValid);
   }, [isValid, toggleStepValidity]);
+
+  useEffect(() => {
+    if (isValid) {
+      const formValues = getValues();
+      const baseInfo: BaseInfoType = {
+        ...formValues,
+        type: formValues.type as BaseInfoType['type'],
+      };
+      dispatch(setBaseInfo(baseInfo));
+    }
+  }, [dispatch, getValues, isValid]);
 
   return (
     <Stack sx={{ maxWidth: '760px' }}>
@@ -38,7 +58,7 @@ export const AdBasicInfoForm = ({
         control={control}
         errors={errors}
         isRequired
-        options={TYPE_OPTIONS}
+        options={ItemTypes}
       />
 
       <LabeledInput type='name' control={control} errors={errors} isRequired />

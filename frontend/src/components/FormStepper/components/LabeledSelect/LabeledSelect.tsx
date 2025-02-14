@@ -8,12 +8,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 
-type TitleKey = keyof typeof TITLES;
-
 type LabeledSelectProps = {
-  type: TitleKey;
+  type: keyof AdBasicInfoFormValues;
   isRequired: boolean;
-  options: string[];
+  options: { [key: string]: string };
   selectedValue?: string;
   control: Control<AdBasicInfoFormValues>;
   errors: FieldErrors<AdBasicInfoFormValues>;
@@ -26,6 +24,8 @@ export const LabeledSelect = ({
   control,
   errors,
 }: LabeledSelectProps) => {
+  const optionsKey = Object.keys(options);
+
   return (
     <Controller
       name={type}
@@ -41,9 +41,9 @@ export const LabeledSelect = ({
             )}
           </Typography>
           <Select {...field} value={field.value || ''}>
-            {options.map((option) => (
+            {optionsKey.map((option) => (
               <MenuItem value={option} key={option}>
-                {option}
+                {options[option]}
               </MenuItem>
             ))}
           </Select>
