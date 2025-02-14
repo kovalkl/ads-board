@@ -12,6 +12,7 @@ type LabeledInputProps = {
   isRequired: boolean;
   control: Control<AdBasicInfoFormValues>;
   errors: FieldErrors<AdBasicInfoFormValues>;
+  defaultValue?: string;
 } & TextFieldProps;
 
 export const LabeledInput = ({
@@ -19,12 +20,14 @@ export const LabeledInput = ({
   isRequired,
   control,
   errors,
+  defaultValue,
   ...props
 }: LabeledInputProps) => {
   return (
     <Controller
       name={type}
       control={control}
+      defaultValue={defaultValue || ''}
       render={({ field }) => (
         <>
           <Typography variant='body1'>
@@ -42,6 +45,7 @@ export const LabeledInput = ({
             helperText={errors[type]?.message || ' '}
             error={!!errors[type]}
             {...props}
+            onChange={(e) => field.onChange(e)}
           />
         </>
       )}

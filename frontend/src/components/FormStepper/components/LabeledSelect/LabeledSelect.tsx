@@ -15,6 +15,7 @@ type LabeledSelectProps = {
   selectedValue?: string;
   control: Control<AdBasicInfoFormValues>;
   errors: FieldErrors<AdBasicInfoFormValues>;
+  defaultValue?: string;
 };
 
 export const LabeledSelect = ({
@@ -23,6 +24,7 @@ export const LabeledSelect = ({
   options,
   control,
   errors,
+  defaultValue,
 }: LabeledSelectProps) => {
   const optionsKey = Object.keys(options);
 
@@ -30,6 +32,7 @@ export const LabeledSelect = ({
     <Controller
       name={type}
       control={control}
+      defaultValue={defaultValue || ''}
       render={({ field }) => (
         <FormControl>
           <Typography variant='body1'>
