@@ -1,42 +1,49 @@
-import { Control, Controller, FieldErrors } from 'react-hook-form';
+import { ReactNode } from 'react';
+import {
+  Control,
+  Controller,
+  FieldErrors,
+  FieldValues,
+  Path,
+  PathValue,
+} from 'react-hook-form';
 
-import { TITLES } from '@/components/FormStepper/components/AdBasicInfoForm/constants';
-import { AdBasicInfoFormValues } from '@/components/FormStepper/components/AdBasicInfoForm/schema';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 
-type LabeledSelectProps = {
-  type: keyof AdBasicInfoFormValues;
+type LabeledSelectProps<T extends FieldValues> = {
+  name: Path<T>;
   isRequired: boolean;
   options: { [key: string]: string };
-  selectedValue?: string;
-  control: Control<AdBasicInfoFormValues>;
-  errors: FieldErrors<AdBasicInfoFormValues>;
+  control: Control<T>;
+  errors: FieldErrors<T>;
+  titles: Record<Path<T>, string>;
   defaultValue?: string;
 };
 
-export const LabeledSelect = ({
-  type,
+export const LabeledSelect = <T extends FieldValues>({
+  name,
   isRequired,
   options,
   control,
   errors,
-  defaultValue,
-}: LabeledSelectProps) => {
+  titles,
+  defaultValue = '',
+}: LabeledSelectProps<T>) => {
   const optionsKey = Object.keys(options);
 
   return (
     <Controller
-      name={type}
+      name={name}
       control={control}
-      defaultValue={defaultValue || ''}
+      defaultValue={defaultValue as PathValue<T, Path<T>>}
       render={({ field }) => (
         <FormControl>
           <Typography variant='body1'>
-            {`${TITLES[type]} `}
+            {`${titles[name]} `}
             {isRequired && (
               <Typography component='span' variant='caption'>
                 *
@@ -50,7 +57,9 @@ export const LabeledSelect = ({
               </MenuItem>
             ))}
           </Select>
-          <FormHelperText>{errors[type]?.message || ' '}</FormHelperText>
+          <FormHelperText>
+            {(errors[name]?.message as ReactNode) || ' '}
+          </FormHelperText>
         </FormControl>
       )}
     />

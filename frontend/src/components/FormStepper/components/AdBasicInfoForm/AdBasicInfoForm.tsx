@@ -60,11 +60,12 @@ export const AdBasicInfoForm = ({
     <Stack sx={{ maxWidth: '760px' }}>
       <Typography variant='h2'>Общая информация</Typography>
 
-      <LabeledSelect
-        type='type'
+      <LabeledSelect<AdBasicInfoFormValues>
+        name='type'
         control={control}
         errors={errors}
         isRequired
+        titles={TITLES}
         options={ItemTypes}
         defaultValue={type}
       />
