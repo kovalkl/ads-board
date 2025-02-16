@@ -1,4 +1,8 @@
-import { AdditionalFieldType, BaseInfoType, ItemTypeKeys } from '@/store/types';
+import {
+  AdditionalFieldType,
+  BaseInfoType,
+  ItemTypeKeys,
+} from '@/types/formTypes';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 type InitialStateType = {

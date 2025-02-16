@@ -1,37 +1,43 @@
-import { Control, Controller, FieldErrors } from 'react-hook-form';
+import { ReactNode } from 'react';
+import {
+  Control,
+  Controller,
+  FieldErrors,
+  FieldValues,
+  Path,
+  PathValue,
+} from 'react-hook-form';
 
-import { TITLES } from '@/components/FormStepper/components/AdBasicInfoForm/constants';
-import { AdBasicInfoFormValues } from '@/components/FormStepper/components/AdBasicInfoForm/schema';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-type TitleKey = keyof typeof TITLES;
-
-type LabeledInputProps = {
-  type: TitleKey;
+type LabeledInputProps<T extends FieldValues> = {
+  name: Path<T>;
   isRequired: boolean;
-  control: Control<AdBasicInfoFormValues>;
-  errors: FieldErrors<AdBasicInfoFormValues>;
+  control: Control<T>;
+  errors: FieldErrors<T>;
   defaultValue?: string;
+  titles: Record<Path<T>, string>;
 } & TextFieldProps;
 
-export const LabeledInput = ({
-  type,
+export const LabeledInput = <T extends FieldValues>({
+  name,
   isRequired,
   control,
   errors,
-  defaultValue,
+  titles,
+  defaultValue = '',
   ...props
-}: LabeledInputProps) => {
+}: LabeledInputProps<T>) => {
   return (
     <Controller
-      name={type}
+      name={name}
       control={control}
-      defaultValue={defaultValue || ''}
+      defaultValue={defaultValue as PathValue<T, Path<T>>}
       render={({ field }) => (
         <>
           <Typography variant='body1'>
-            {`${TITLES[type]} `}
+            {`${titles[name]} `}
             {isRequired && (
               <Typography component='span' variant='caption'>
                 *
@@ -42,8 +48,8 @@ export const LabeledInput = ({
             {...field}
             value={field.value || ''}
             required
-            helperText={errors[type]?.message || ' '}
-            error={!!errors[type]}
+            helperText={(errors[name]?.message as ReactNode) || ' '}
+            error={!!errors[name]}
             {...props}
             onChange={(e) => field.onChange(e)}
           />

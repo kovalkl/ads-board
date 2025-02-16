@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { TITLES } from '@/components/FormStepper/components/AdBasicInfoForm/constants';
 import {
   AdBasicInfoFormValues,
   schema,
@@ -9,8 +10,7 @@ import { LabeledInput } from '@/components/FormStepper/components/LabeledInput/L
 import { LabeledSelect } from '@/components/FormStepper/components/LabeledSelect/LabeledSelect';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setBaseInfo } from '@/store/slice/FormSlice';
-import { ItemTypes } from '@/store/types';
-import { BaseInfoType } from '@/store/types';
+import { BaseInfoType, ItemTypes } from '@/types/formTypes';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -69,16 +69,18 @@ export const AdBasicInfoForm = ({
         defaultValue={type}
       />
 
-      <LabeledInput
-        type='name'
+      <LabeledInput<AdBasicInfoFormValues>
+        name='name'
+        titles={TITLES}
         control={control}
         errors={errors}
         defaultValue={name}
         isRequired
       />
 
-      <LabeledInput
-        type='description'
+      <LabeledInput<AdBasicInfoFormValues>
+        name='description'
+        titles={TITLES}
         control={control}
         errors={errors}
         defaultValue={description}
@@ -87,8 +89,9 @@ export const AdBasicInfoForm = ({
         minRows={3}
       />
 
-      <LabeledInput
-        type='location'
+      <LabeledInput<AdBasicInfoFormValues>
+        name='location'
+        titles={TITLES}
         control={control}
         errors={errors}
         defaultValue={location}

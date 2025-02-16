@@ -1,11 +1,3 @@
-export const ItemTypes = {
-  real_estate: 'Недвижимость',
-  auto: 'Авто',
-  services: 'Услуги',
-} as const;
-
-export type ItemTypeKeys = keyof typeof ItemTypes;
-
 export type AdditionalFieldType = {
   real_estate?: {
     propertyType: string;
@@ -26,6 +18,14 @@ export type AdditionalFieldType = {
     workSchedule?: string;
   };
 };
+
+export const ItemTypes = {
+  real_estate: 'Недвижимость',
+  auto: 'Авто',
+  services: 'Услуги',
+} as const;
+
+export type ItemTypeKeys = keyof typeof ItemTypes;
 
 export type BaseInfoType = {
   name: string;

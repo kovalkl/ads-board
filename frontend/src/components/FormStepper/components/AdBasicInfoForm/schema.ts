@@ -1,4 +1,4 @@
-import { ItemTypes } from '@/store/types';
+import { ItemTypes } from '@/types/formTypes';
 import * as yup from 'yup';
 
 export interface AdBasicInfoFormValues {
