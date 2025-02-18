@@ -9,7 +9,7 @@ import {
 import { LabeledInput } from '@/components/FormStepper/components/LabeledInput/LabeledInput';
 import { LabeledSelect } from '@/components/FormStepper/components/LabeledSelect/LabeledSelect';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { setBaseInfo } from '@/store/slice/FormSlice';
+import { setBaseInfo, setType } from '@/store/slice/FormSlice';
 import { BaseInfoType, ItemTypes } from '@/types/formTypes';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Stack from '@mui/material/Stack';
@@ -33,6 +33,7 @@ export const AdBasicInfoForm = ({
     control,
     watch,
     formState: { errors, isValid },
+    setValue,
   } = useForm<AdBasicInfoFormValues>({
     resolver: yupResolver(schema),
     mode: 'onChange',
@@ -52,9 +53,18 @@ export const AdBasicInfoForm = ({
 
   const formValues = watch();
 
+  const watchedType = watch('type');
+
   useEffect(() => {
     debouncedDispatch(formValues);
   }, [formValues, debouncedDispatch]);
+
+  useEffect(() => {
+    setValue('name', '');
+    setValue('description', '');
+    setValue('location', '');
+    dispatch(setType(watchedType));
+  }, [watchedType, dispatch, setValue]);
 
   return (
     <Stack sx={{ maxWidth: '760px' }}>

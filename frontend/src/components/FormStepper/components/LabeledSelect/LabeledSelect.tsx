@@ -31,7 +31,7 @@ export const LabeledSelect = <T extends FieldValues>({
   control,
   errors,
   titles,
-  defaultValue = '',
+  defaultValue,
 }: LabeledSelectProps<T>) => {
   const optionsKey = Object.keys(options);
 

@@ -2,6 +2,7 @@ import {
   AdditionalFieldsType,
   AutoType,
   BaseInfoType,
+  ItemTypeKeys,
   RealEstateType,
 } from '@/types/formTypes';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
@@ -26,10 +27,25 @@ export const FormSlice = createSlice({
   initialState,
   reducers: {
     setBaseInfo: (state, action: PayloadAction<BaseInfoType>) => {
-      state.name = action.payload.name;
-      state.description = action.payload.description;
-      state.location = action.payload.location;
-      state.type = action.payload.type;
+      if (state.name !== action.payload.name) {
+        state.name = action.payload.name;
+      }
+
+      if (state.description !== action.payload.description) {
+        state.description = action.payload.description;
+      }
+
+      if (state.location !== action.payload.location) {
+        state.location = action.payload.location;
+      }
+    },
+
+    setType: (state, action: PayloadAction<ItemTypeKeys>) => {
+      if (state.type !== action.payload) {
+        state.type = action.payload;
+
+        state.additionalFields = initialState.additionalFields;
+      }
     },
 
     setRealEstateInfo: (state, action: PayloadAction<RealEstateType>) => {
@@ -45,4 +61,4 @@ export const FormSlice = createSlice({
 
 export default FormSlice.reducer;
 
-export const { setBaseInfo, setRealEstateInfo } = FormSlice.actions;
+export const { setBaseInfo, setRealEstateInfo, setType } = FormSlice.actions;
