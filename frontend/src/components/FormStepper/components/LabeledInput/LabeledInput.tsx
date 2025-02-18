@@ -16,7 +16,7 @@ type LabeledInputProps<T extends FieldValues> = {
   isRequired: boolean;
   control: Control<T>;
   errors: FieldErrors<T>;
-  defaultValue?: string;
+  defaultValue?: string | number | undefined;
   titles: Record<Path<T>, string>;
 } & TextFieldProps;
 
@@ -26,7 +26,7 @@ export const LabeledInput = <T extends FieldValues>({
   control,
   errors,
   titles,
-  defaultValue = '',
+  defaultValue,
   ...props
 }: LabeledInputProps<T>) => {
   return (
