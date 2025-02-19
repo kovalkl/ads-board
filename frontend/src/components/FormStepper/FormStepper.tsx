@@ -20,12 +20,18 @@ export const FormStepper = ({ isNewAd = true }: FormStepperProps) => {
 
   const [validSteps, setValidSteps] = useState<number[]>([]);
   const [activeStep, setActiveStep] = useState(0);
-  const formRef = useRef<{ submit: () => boolean } | null>(null);
+  const basicInfoFormRef = useRef<{ submit: () => boolean } | null>(null);
+  const additionalInfoFormRef = useRef<{ submit: () => boolean } | null>(null);
 
   const handleNext = () => {
     if (activeStep === 0) {
-      if (formRef.current?.submit()) {
+      if (basicInfoFormRef.current?.submit()) {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      }
+    }
+    if (activeStep === steps.length - 1) {
+      if (additionalInfoFormRef.current?.submit()) {
+        console.log('submit form');
       }
     }
   };
@@ -64,10 +70,15 @@ export const FormStepper = ({ isNewAd = true }: FormStepperProps) => {
         {activeStep === 0 && (
           <AdBasicInfoForm
             toggleStepValidity={toggleStepValidity}
-            ref={formRef}
+            ref={basicInfoFormRef}
           />
         )}
-        {activeStep === 1 && <AdAdditionalInfoForm />}
+        {activeStep === 1 && (
+          <AdAdditionalInfoForm
+            ref={additionalInfoFormRef}
+            toggleStepValidity={toggleStepValidity}
+          />
+        )}
         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
           <Button
             color='inherit'

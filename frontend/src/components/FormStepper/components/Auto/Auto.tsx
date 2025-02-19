@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { AUTO_TITLES } from '@/components/FormStepper/components/Auto/constants';
@@ -10,12 +10,16 @@ import { LabeledInput } from '@/components/FormStepper/components/LabeledInput/L
 import { LabeledSelect } from '@/components/FormStepper/components/LabeledSelect/LabeledSelect';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setAutoInfo } from '@/store/slice/FormSlice';
-import { AutoBrands, AutoType } from '@/types/formTypes';
+import { AutoBrands } from '@/types/formTypes';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Stack from '@mui/material/Stack';
-import { debounce } from 'lodash';
 
-export const Auto = () => {
+type AutoProps = {
+  // eslint-disable-next-line no-unused-vars
+  toggleStepValidity: (isValid: boolean) => void;
+};
+
+export const Auto = forwardRef(({ toggleStepValidity }: AutoProps, ref) => {
   const dispatch = useAppDispatch();
 
   const auto = useAppSelector((state) => state.form.additionalFields.auto);
@@ -23,25 +27,23 @@ export const Auto = () => {
   const {
     control,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<AutoValues>({
     resolver: yupResolver(schemaAuto),
     mode: 'onChange',
   });
 
-  const debouncedDispatch = debounce((formValues: AutoValues) => {
-    const realEstateInfo = {
-      ...formValues,
-      brand: formValues.brand as AutoType['brand'],
-    };
-    dispatch(setAutoInfo(realEstateInfo));
-  }, 1000);
-
-  const formValues = watch();
-
   useEffect(() => {
-    debouncedDispatch(formValues);
-  }, [formValues, debouncedDispatch]);
+    toggleStepValidity(isValid);
+  }, [isValid, toggleStepValidity]);
+
+  useImperativeHandle(ref, () => ({
+    submit: () => {
+      const formValues = watch();
+      dispatch(setAutoInfo(formValues));
+      return true;
+    },
+  }));
 
   return (
     <Stack>
@@ -83,4 +85,4 @@ export const Auto = () => {
       />
     </Stack>
   );
-};
+});
