@@ -45,11 +45,37 @@ export const AutoBrands = {
   other: 'Другое',
 } as const;
 
+export const ServiceTypes = {
+  repair: 'Ремонт',
+  cleaning: 'Уборка',
+  delivery: 'Доставка',
+  plumbing: 'Сантехника',
+  electrical: 'Электрика',
+  painting: 'Покраска',
+  moving: 'Переезд',
+  installation: 'Установка',
+  maintenance: 'Техническое обслуживание',
+  renovation: 'Ремонтные работы',
+  construction: 'Строительство',
+  pestControl: 'Дезинсекция',
+  gardenWork: 'Садовые работы',
+  babysitting: 'Уход за детьми',
+  petCare: 'Уход за животными',
+  tutoring: 'Репетиторство',
+  personalTraining: 'Персональные тренировки',
+  consulting: 'Консультирование',
+  security: 'Охрана',
+  catering: 'Кейтеринг',
+  other: 'Другое',
+} as const;
+
 export type ItemTypeKeys = keyof typeof ItemTypes;
 
 export type PropertyTypesKeys = keyof typeof PropertyTypes;
 
 export type AutoBrandsKeys = keyof typeof AutoBrands;
+
+export type ServiceTypesKeys = keyof typeof ServiceTypes;
 
 export type BaseInfoType = {
   name: string;
@@ -73,7 +99,15 @@ export type AutoType = {
   mileage?: number;
 };
 
+export type ServiceType = {
+  serviceType: ServiceTypesKeys | '';
+  experience: number;
+  cost: number;
+  workSchedule?: string;
+};
+
 export type AdditionalFieldsType = {
   realEstate: RealEstateType;
   auto: AutoType;
+  services: ServiceType;
 };

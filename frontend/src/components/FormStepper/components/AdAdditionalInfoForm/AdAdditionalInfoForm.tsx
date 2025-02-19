@@ -2,6 +2,7 @@ import { forwardRef, useImperativeHandle, useRef } from 'react';
 
 import { Auto } from '@/components/FormStepper/components/Auto/Auto';
 import { RealEstate } from '@/components/FormStepper/components/RealEstate/RealEstate';
+import { Services } from '@/components/FormStepper/components/Services/Services';
 import { useAppSelector } from '@/store/hooks';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -17,6 +18,7 @@ export const AdAdditionalInfoForm = forwardRef(
 
     const realEstateRef = useRef<{ submit: () => boolean } | null>(null);
     const autoRef = useRef<{ submit: () => boolean } | null>(null);
+    const servicesRef = useRef<{ submit: () => boolean } | null>(null);
 
     useImperativeHandle(ref, () => ({
       submit: () => {
@@ -24,6 +26,8 @@ export const AdAdditionalInfoForm = forwardRef(
           return realEstateRef.current?.submit() ?? false;
         } else if (type === 'auto') {
           return autoRef.current?.submit() ?? false;
+        } else if (type === 'services') {
+          return servicesRef.current?.submit() ?? false;
         }
         return false;
       },
@@ -41,6 +45,9 @@ export const AdAdditionalInfoForm = forwardRef(
         )}
         {type === 'auto' && (
           <Auto ref={autoRef} toggleStepValidity={toggleStepValidity} />
+        )}
+        {type === 'services' && (
+          <Services ref={servicesRef} toggleStepValidity={toggleStepValidity} />
         )}
       </Stack>
     );
