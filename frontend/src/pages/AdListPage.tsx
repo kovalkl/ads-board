@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-export const AdList = () => {
+export const AdListPage = () => {
   return (
     <Container>
       <Stack gap={2} alignItems='flex-start'>

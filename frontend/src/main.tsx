@@ -5,31 +5,37 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 
 import { Layout } from '@/components/Layout/Layout.tsx';
 import { PATH } from '@/constants/paths';
-import '@/index.sass';
-import { AdCard } from '@/pages/AdCard.tsx';
-import { AdList } from '@/pages/AdList';
-import { Form } from '@/pages/Form.tsx';
+import { AdCardPage } from '@/pages/AdCardPage';
+import { AdListPage } from '@/pages/AdListPage';
+import { FormPage } from '@/pages/FormPage';
 import store from '@/store';
 import { theme } from '@/theme';
+import { ThemeProvider } from '@mui/material/styles';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+import '@/index.sass';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/700.css';
-import { ThemeProvider } from '@mui/material/styles';
+
+const client = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<Layout />}>
-              <Route index element={<Navigate to='list' replace />} />
-              <Route path={PATH.FORM} element={<Form />} />
-              <Route path={PATH.LIST} element={<AdList />} />
-              <Route path={`${PATH.ITEM}:id`} element={<AdCard />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </ThemeProvider>
-    </Provider>
+    <QueryClientProvider client={client}>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<Layout />}>
+                <Route index element={<Navigate to='list' replace />} />
+                <Route path={PATH.FORM} element={<FormPage />} />
+                <Route path={PATH.LIST} element={<AdListPage />} />
+                <Route path={`${PATH.ITEM}:id`} element={<AdCardPage />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </ThemeProvider>
+      </Provider>
+    </QueryClientProvider>
   </StrictMode>,
 );

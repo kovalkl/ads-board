@@ -1,4 +1,4 @@
-export const AdCard = () => {
+export const AdCardPage = () => {
   return (
     <div>
       <h1>Item</h1>
