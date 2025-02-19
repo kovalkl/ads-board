@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import { AdAdditionalInfoForm } from '@/components/FormStepper/components/AdAdditionalInfoForm/AdAdditionalInfoForm';
 import { AdBasicInfoForm } from '@/components/FormStepper/components/AdBasicInfoForm/AdBasicInfoForm';
@@ -20,21 +20,14 @@ export const FormStepper = ({ isNewAd = true }: FormStepperProps) => {
 
   const [validSteps, setValidSteps] = useState<number[]>([]);
   const [activeStep, setActiveStep] = useState(0);
-  const [skipped, setSkipped] = useState(new Set<number>());
-
-  const isStepSkipped = (step: number) => {
-    return skipped.has(step);
-  };
+  const formRef = useRef<{ submit: () => boolean } | null>(null);
 
   const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
+    if (activeStep === 0) {
+      if (formRef.current?.submit()) {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      }
     }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
   };
 
   const handleBack = () => {
@@ -69,7 +62,10 @@ export const FormStepper = ({ isNewAd = true }: FormStepperProps) => {
       </Stepper>
       <>
         {activeStep === 0 && (
-          <AdBasicInfoForm toggleStepValidity={toggleStepValidity} />
+          <AdBasicInfoForm
+            toggleStepValidity={toggleStepValidity}
+            ref={formRef}
+          />
         )}
         {activeStep === 1 && <AdAdditionalInfoForm />}
         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>

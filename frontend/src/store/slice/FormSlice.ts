@@ -27,17 +27,11 @@ export const FormSlice = createSlice({
   initialState,
   reducers: {
     setBaseInfo: (state, action: PayloadAction<BaseInfoType>) => {
-      if (state.name !== action.payload.name) {
-        state.name = action.payload.name;
-      }
+      state.type = action.payload.type;
 
-      if (state.description !== action.payload.description) {
-        state.description = action.payload.description;
-      }
-
-      if (state.location !== action.payload.location) {
-        state.location = action.payload.location;
-      }
+      state.name = action.payload.name;
+      state.description = action.payload.description;
+      state.location = action.payload.location;
     },
 
     setType: (state, action: PayloadAction<ItemTypeKeys>) => {
@@ -56,9 +50,19 @@ export const FormSlice = createSlice({
         state.additionalFields.realEstate = action.payload;
       }
     },
+
+    setAutoInfo: (state, action: PayloadAction<AutoType>) => {
+      if (
+        JSON.stringify(state.additionalFields.auto) !==
+        JSON.stringify(action.payload)
+      ) {
+        state.additionalFields.auto = action.payload;
+      }
+    },
   },
 });
 
 export default FormSlice.reducer;
 
-export const { setBaseInfo, setRealEstateInfo, setType } = FormSlice.actions;
+export const { setBaseInfo, setRealEstateInfo, setType, setAutoInfo } =
+  FormSlice.actions;
