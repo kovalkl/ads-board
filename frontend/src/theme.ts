@@ -79,5 +79,12 @@ export const theme = createTheme({
         size: 'small',
       },
     },
+    MuiCircularProgress: {
+      defaultProps: {
+        sx: {
+          alignSelf: 'center',
+        },
+      },
+    },
   },
 });
