@@ -10,7 +10,7 @@ import {
 } from '@/components/FormStepper/components/RealEstate/schema';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setRealEstateInfo } from '@/store/slice/FormSlice';
-import { PropertyTypes } from '@/types/formTypes';
+import { propertyTypeArray } from '@/types/formTypes';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Stack from '@mui/material/Stack';
 
@@ -56,7 +56,7 @@ export const RealEstate = forwardRef(
           errors={errors}
           titles={REAL_ESTATE_TITLES}
           isRequired
-          options={PropertyTypes}
+          options={propertyTypeArray}
           defaultValue={realEstate?.propertyType}
         />
 

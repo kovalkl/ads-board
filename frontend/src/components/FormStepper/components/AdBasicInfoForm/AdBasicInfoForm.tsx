@@ -12,7 +12,7 @@ import { LabeledInput } from '@/components/FormStepper/components/LabeledInput/L
 import { LabeledSelect } from '@/components/FormStepper/components/LabeledSelect/LabeledSelect';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setBaseInfo } from '@/store/slice/FormSlice';
-import { ItemTypes } from '@/types/formTypes';
+import { adTypeArray } from '@/types/formTypes';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -66,7 +66,7 @@ export const AdBasicInfoForm = forwardRef(
           errors={errors}
           isRequired
           titles={TITLES}
-          options={ItemTypes}
+          options={adTypeArray}
           defaultValue={type}
         />
 

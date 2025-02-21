@@ -17,7 +17,7 @@ import Typography from '@mui/material/Typography';
 type LabeledSelectProps<T extends FieldValues> = {
   name: Path<T>;
   isRequired: boolean;
-  options: { [key: string]: string };
+  options: string[];
   control: Control<T>;
   errors: FieldErrors<T>;
   titles: Record<Path<T>, string>;
@@ -33,8 +33,6 @@ export const LabeledSelect = <T extends FieldValues>({
   titles,
   defaultValue,
 }: LabeledSelectProps<T>) => {
-  const optionsKey = Object.keys(options);
-
   return (
     <Controller
       name={name}
@@ -51,9 +49,9 @@ export const LabeledSelect = <T extends FieldValues>({
             )}
           </Typography>
           <Select {...field} value={field.value || ''}>
-            {optionsKey.map((option) => (
+            {options.map((option) => (
               <MenuItem value={option} key={option}>
-                {options[option]}
+                {option}
               </MenuItem>
             ))}
           </Select>

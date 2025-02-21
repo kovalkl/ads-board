@@ -3,6 +3,7 @@ interface AdBase {
   description: string;
   location: string;
   type: string;
+  image?: string;
 }
 
 interface RealEstateAd extends AdBase {
@@ -18,7 +19,7 @@ interface AutoAd extends AdBase {
   brand: string;
   model: string;
   year: number;
-  mileage: number;
+  mileage?: number;
 }
 
 interface ServiceAd extends AdBase {

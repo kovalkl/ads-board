@@ -1,8 +1,8 @@
-import { PropertyTypes } from '@/types/formTypes';
+import { PropertyType, propertyTypeArray } from '@/types/formTypes';
 import * as yup from 'yup';
 
 export interface RealEstateValues {
-  propertyType: keyof typeof PropertyTypes;
+  propertyType: PropertyType;
   area: number;
   rooms: number;
   price: number;
@@ -10,8 +10,8 @@ export interface RealEstateValues {
 
 export const schemaRealEstate = yup.object().shape({
   propertyType: yup
-    .mixed<keyof typeof PropertyTypes>()
-    .oneOf(Object.keys(PropertyTypes) as (keyof typeof PropertyTypes)[])
+    .mixed<PropertyType>()
+    .oneOf(propertyTypeArray)
     .required('Обязательное поле'),
   area: yup.number().typeError('Введите число').required('Обязательное поле'),
   rooms: yup.number().typeError('Введите число').required('Обязательное поле'),

@@ -1,8 +1,8 @@
-import { ServiceTypes } from '@/types/formTypes';
+import { ServiceTypeType, serviceTypeArray } from '@/types/formTypes';
 import * as yup from 'yup';
 
 export interface ServicesValues {
-  serviceType: keyof typeof ServiceTypes;
+  serviceType: ServiceTypeType;
   experience: number;
   cost: number;
   workSchedule?: string;
@@ -10,8 +10,8 @@ export interface ServicesValues {
 
 export const schemaServices = yup.object().shape({
   serviceType: yup
-    .mixed<keyof typeof ServiceTypes>()
-    .oneOf(Object.keys(ServiceTypes) as (keyof typeof ServiceTypes)[])
+    .mixed<ServiceTypeType>()
+    .oneOf(serviceTypeArray)
     .required('Обязательное поле'),
   experience: yup
     .number()

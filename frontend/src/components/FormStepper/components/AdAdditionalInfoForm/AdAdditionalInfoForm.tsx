@@ -22,11 +22,11 @@ export const AdAdditionalInfoForm = forwardRef(
 
     useImperativeHandle(ref, () => ({
       submit: () => {
-        if (type === 'real_estate') {
+        if (type === 'Недвижимость') {
           return realEstateRef.current?.submit() ?? false;
-        } else if (type === 'auto') {
+        } else if (type === 'Авто') {
           return autoRef.current?.submit() ?? false;
-        } else if (type === 'services') {
+        } else if (type === 'Услуги') {
           return servicesRef.current?.submit() ?? false;
         }
         return false;
@@ -37,16 +37,16 @@ export const AdAdditionalInfoForm = forwardRef(
       <Stack sx={{ maxWidth: '760px' }}>
         <Typography variant='h2'>Дополнительная информация</Typography>
 
-        {type === 'real_estate' && (
+        {type === 'Недвижимость' && (
           <RealEstate
             ref={realEstateRef}
             toggleStepValidity={toggleStepValidity}
           />
         )}
-        {type === 'auto' && (
+        {type === 'Авто' && (
           <Auto ref={autoRef} toggleStepValidity={toggleStepValidity} />
         )}
-        {type === 'services' && (
+        {type === 'Услуги' && (
           <Services ref={servicesRef} toggleStepValidity={toggleStepValidity} />
         )}
       </Stack>

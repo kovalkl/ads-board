@@ -10,7 +10,7 @@ import { LabeledInput } from '@/components/FormStepper/components/LabeledInput/L
 import { LabeledSelect } from '@/components/FormStepper/components/LabeledSelect/LabeledSelect';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setAutoInfo } from '@/store/slice/FormSlice';
-import { AutoBrands } from '@/types/formTypes';
+import { autoBrandArray } from '@/types/formTypes';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Stack from '@mui/material/Stack';
 
@@ -53,7 +53,7 @@ export const Auto = forwardRef(({ toggleStepValidity }: AutoProps, ref) => {
         errors={errors}
         titles={AUTO_TITLES}
         isRequired
-        options={AutoBrands}
+        options={autoBrandArray}
         defaultValue={auto?.brand}
       />
 

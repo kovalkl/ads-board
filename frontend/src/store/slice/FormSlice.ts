@@ -1,8 +1,8 @@
 import {
   AdditionalFieldsType,
+  AdsType,
   AutoType,
   BaseInfoType,
-  ItemTypeKeys,
   RealEstateType,
   ServiceType,
 } from '@/types/formTypes';
@@ -10,7 +10,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 type InitialStateType = {
   additionalFields: AdditionalFieldsType;
-} & BaseInfoType;
+} & Omit<BaseInfoType, 'type'> & { type: AdsType | '' };
 
 const initialState: InitialStateType = {
   name: '',
@@ -40,7 +40,7 @@ export const FormSlice = createSlice({
       }
     },
 
-    setType: (state, action: PayloadAction<ItemTypeKeys>) => {
+    setType: (state, action: PayloadAction<AdsType>) => {
       if (state.type !== action.payload) {
         state.type = action.payload;
 

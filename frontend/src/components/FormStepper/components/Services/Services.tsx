@@ -10,7 +10,7 @@ import {
 } from '@/components/FormStepper/components/Services/schema';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setServicesInfo } from '@/store/slice/FormSlice';
-import { ServiceTypes } from '@/types/formTypes';
+import { serviceTypeArray } from '@/types/formTypes';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Stack from '@mui/material/Stack';
 
@@ -56,7 +56,7 @@ export const Services = forwardRef(
           errors={errors}
           titles={SERVICES_TITLES}
           isRequired
-          options={ServiceTypes}
+          options={serviceTypeArray}
           defaultValue={services?.serviceType}
         />
 

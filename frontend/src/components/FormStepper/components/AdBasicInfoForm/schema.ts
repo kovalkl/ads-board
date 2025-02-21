@@ -1,8 +1,8 @@
-import { ItemTypes } from '@/types/formTypes';
+import { AdsType, adTypeArray } from '@/types/formTypes';
 import * as yup from 'yup';
 
 export interface AdBasicInfoFormValues {
-  type: keyof typeof ItemTypes;
+  type: AdsType;
   name: string;
   description: string;
   location: string;
@@ -12,10 +12,7 @@ export interface AdBasicInfoFormValues {
 const MAX_FILE_SIZE_BYTES = 2097152;
 
 export const schema = yup.object().shape({
-  type: yup
-    .mixed<keyof typeof ItemTypes>()
-    .oneOf(Object.keys(ItemTypes) as (keyof typeof ItemTypes)[])
-    .required('Обязательное поле'),
+  type: yup.mixed<AdsType>().oneOf(adTypeArray).required('Обязательное поле'),
   name: yup.string().required('Обязательное поле'),
   description: yup.string().required('Обязательное поле'),
   location: yup.string().required('Обязательное поле'),

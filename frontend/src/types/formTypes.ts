@@ -1,106 +1,102 @@
-export const ItemTypes = {
-  real_estate: 'Недвижимость',
-  auto: 'Авто',
-  services: 'Услуги',
-} as const;
+export const adTypeArray = ['Недвижимость', 'Авто', 'Услуги'];
 
-export const PropertyTypes = {
-  flat: 'Квартира',
-  house: 'Дом',
-  land: 'Участок',
-  office: 'Офис',
-  garage: 'Гараж',
-} as const;
+export const propertyTypeArray = [
+  'Квартира',
+  'Дом',
+  'Участок',
+  'Офис',
+  'Гараж',
+];
 
-export const AutoBrands = {
-  Toyota: 'Toyota',
-  Ford: 'Ford',
-  Chevrolet: 'Chevrolet',
-  Honda: 'Honda',
-  BMW: 'BMW',
-  'Mercedes-Benz': 'Mercedes-Benz',
-  Audi: 'Audi',
-  Nissan: 'Nissan',
-  Volkswagen: 'Volkswagen',
-  Hyundai: 'Hyundai',
-  Kia: 'Kia',
-  Mazda: 'Mazda',
-  Subaru: 'Subaru',
-  Porsche: 'Porsche',
-  Lexus: 'Lexus',
-  Jeep: 'Jeep',
-  Chrysler: 'Chrysler',
-  'Land Rover': 'Land Rover',
-  Jaguar: 'Jaguar',
-  Ferrari: 'Ferrari',
-  Lamborghini: 'Lamborghini',
-  Tesla: 'Tesla',
-  Mitsubishi: 'Mitsubishi',
-  Peugeot: 'Peugeot',
-  Renault: 'Renault',
-  Fiat: 'Fiat',
-  Skoda: 'Skoda',
-  Opel: 'Opel',
-  Volvo: 'Volvo',
-  other: 'Другое',
-} as const;
+export const autoBrandArray = [
+  'Toyota',
+  'Ford',
+  'Chevrolet',
+  'Honda',
+  'BMW',
+  'Mercedes-Benz',
+  'Audi',
+  'Nissan',
+  'Volkswagen',
+  'Hyundai',
+  'Kia',
+  'Mazda',
+  'Subaru',
+  'Porsche',
+  'Lexus',
+  'Jeep',
+  'Chrysler',
+  'Land Rover',
+  'Jaguar',
+  'Ferrari',
+  'Lamborghini',
+  'Tesla',
+  'Mitsubishi',
+  'Peugeot',
+  'Renault',
+  'Fiat',
+  'Skoda',
+  'Opel',
+  'Volvo',
+  'Другое',
+];
 
-export const ServiceTypes = {
-  repair: 'Ремонт',
-  cleaning: 'Уборка',
-  delivery: 'Доставка',
-  plumbing: 'Сантехника',
-  electrical: 'Электрика',
-  painting: 'Покраска',
-  moving: 'Переезд',
-  installation: 'Установка',
-  maintenance: 'Техническое обслуживание',
-  renovation: 'Ремонтные работы',
-  construction: 'Строительство',
-  pestControl: 'Дезинсекция',
-  gardenWork: 'Садовые работы',
-  babysitting: 'Уход за детьми',
-  petCare: 'Уход за животными',
-  tutoring: 'Репетиторство',
-  personalTraining: 'Персональные тренировки',
-  consulting: 'Консультирование',
-  security: 'Охрана',
-  catering: 'Кейтеринг',
-  other: 'Другое',
-} as const;
+export const serviceTypeArray = [
+  'Ремонт',
+  'Уборка',
+  'Доставка',
+  'Сантехника',
+  'Электрика',
+  'Покраска',
+  'Переезд',
+  'Установка',
+  'Техническое обслуживание',
+  'Ремонтные работы',
+  'Строительство',
+  'Дезинсекция',
+  'Садовые работы',
+  'Уход за детьми',
+  'Уход за животными',
+  'Репетиторство',
+  'Персональные тренировки',
+  'Консультирование',
+  'Охрана',
+  'Кейтеринг',
+  'Другое',
+];
 
-export type ItemTypeKeys = keyof typeof ItemTypes;
+export type AdsType = (typeof adTypeArray)[number];
 
-export type PropertyTypesKeys = keyof typeof PropertyTypes;
+export type PropertyType = (typeof propertyTypeArray)[number];
 
-export type AutoBrandsKeys = keyof typeof AutoBrands;
+export type AutoBrandType = (typeof autoBrandArray)[number];
 
-export type ServiceTypesKeys = keyof typeof ServiceTypes;
+export type ServiceTypeType = (typeof serviceTypeArray)[number];
 
 export type BaseInfoType = {
+  type: AdsType | '';
   name: string;
   description: string;
   location: string;
-  type: ItemTypeKeys | '';
   image?: string;
 };
 
 export type RealEstateType = {
-  propertyType: PropertyTypesKeys | '';
+  propertyType: PropertyType | '';
   area: number;
   rooms: number;
   price: number;
 };
 
 export type AutoType = {
-  brand: AutoBrandsKeys | '';
+  brand: AutoBrandType | '';
   model: string;
   year: number;
   mileage?: number;
 };
 
 export type ServiceType = {
-  serviceType: ServiceTypesKeys | '';
+  serviceType: ServiceTypeType | '';
   experience: number;
   cost: number;
   workSchedule?: string;
