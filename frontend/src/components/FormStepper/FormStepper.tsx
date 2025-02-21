@@ -31,7 +31,7 @@ export const FormStepper = ({ isNewAd = true }: FormStepperProps) => {
     }
     if (activeStep === steps.length - 1) {
       if (additionalInfoFormRef.current?.submit()) {
-        console.log('submit form');
+        console.log('finish');
       }
     }
   };
@@ -79,7 +79,7 @@ export const FormStepper = ({ isNewAd = true }: FormStepperProps) => {
             toggleStepValidity={toggleStepValidity}
           />
         )}
-        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', pb: 2 }}>
           <Button
             color='inherit'
             disabled={activeStep === 0}

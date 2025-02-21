@@ -2,10 +2,12 @@ import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { TITLES } from '@/components/FormStepper/components/AdBasicInfoForm/constants';
+import { convertFileToBase64 } from '@/components/FormStepper/components/AdBasicInfoForm/convertFileToBase64';
 import {
   AdBasicInfoFormValues,
   schema,
 } from '@/components/FormStepper/components/AdBasicInfoForm/schema';
+import { LabeledImageInput } from '@/components/FormStepper/components/LabeledImageInput/LabeledImageInput';
 import { LabeledInput } from '@/components/FormStepper/components/LabeledInput/LabeledInput';
 import { LabeledSelect } from '@/components/FormStepper/components/LabeledSelect/LabeledSelect';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -23,7 +25,7 @@ type AdBasicInfoFormProps = {
 export const AdBasicInfoForm = forwardRef(
   ({ toggleStepValidity }: AdBasicInfoFormProps, ref) => {
     const dispatch = useAppDispatch();
-    const { name, description, location, type } = useAppSelector(
+    const { name, description, location, type, image } = useAppSelector(
       (state) => state.form,
     );
 
@@ -41,9 +43,15 @@ export const AdBasicInfoForm = forwardRef(
     }, [isValid, toggleStepValidity]);
 
     useImperativeHandle(ref, () => ({
-      submit: () => {
+      submit: async () => {
         const formValues = watch();
-        dispatch(setBaseInfo(formValues));
+        const baseInfo = {
+          ...formValues,
+          image: formValues.image
+            ? await convertFileToBase64(formValues.image)
+            : undefined,
+        };
+        dispatch(setBaseInfo(baseInfo));
         return true;
       },
     }));
@@ -89,6 +97,15 @@ export const AdBasicInfoForm = forwardRef(
           errors={errors}
           defaultValue={location}
           isRequired
+        />
+
+        <LabeledImageInput
+          name='image'
+          titles={TITLES}
+          control={control}
+          errors={errors}
+          isRequired={false}
+          defaultValue={image}
         />
       </Stack>
     );

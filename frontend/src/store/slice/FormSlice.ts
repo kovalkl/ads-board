@@ -34,6 +34,10 @@ export const FormSlice = createSlice({
       state.name = action.payload.name;
       state.description = action.payload.description;
       state.location = action.payload.location;
+
+      if (action.payload.image) {
+        state.image = action.payload.image;
+      }
     },
 
     setType: (state, action: PayloadAction<ItemTypeKeys>) => {

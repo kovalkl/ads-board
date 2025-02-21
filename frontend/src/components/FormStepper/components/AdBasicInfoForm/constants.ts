@@ -3,6 +3,7 @@ type TitlesType = {
   type: string;
   description: string;
   location: string;
+  image: string;
 };
 
 export const TITLES: TitlesType = {
@@ -10,4 +11,5 @@ export const TITLES: TitlesType = {
   name: 'Название',
   description: 'Описание',
   location: 'Локация',
+  image: 'Изображение',
 };
