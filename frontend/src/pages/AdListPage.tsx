@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 
-import { AdList } from '@/components/AdList/AdList';
+import { AdListView } from '@/components/AdListView/AdListView';
 import { PATH } from '@/constants/paths';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -19,7 +19,7 @@ export const AdListPage = () => {
             </Button>
           </Link>
         </Stack>
-        <AdList />
+        <AdListView />
       </Stack>
     </Container>
   );
